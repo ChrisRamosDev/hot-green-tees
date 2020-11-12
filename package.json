@@ -27,7 +27,8 @@
     "develop": "netlify dev",
     "start": "gatsby develop",
     "build": "gatsby clean && gatsby build",
-    "serve": "npm run build && gatsby serve"
+    "serve": "npm run build && gatsby serve",
+    "clean": "gatsby clean"
   },
   "devDependencies": {
     "netlify-cli": "^2.68.4"

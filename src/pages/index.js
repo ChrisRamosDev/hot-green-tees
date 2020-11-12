@@ -1,6 +1,8 @@
 import React from "react";
 import { graphql } from "gatsby";
 
+import Product from "../components/Product";
+
 export const query = graphql`
   {
     allShopifyProduct(
@@ -11,24 +13,28 @@ export const query = graphql`
         title
         description
         productType
+        tags
         variants {
           id
           priceV2 {
             amount
             currencyCode
           }
-        }
-        images {
-          localFile {
-            childImageSharp {
-              fluid {
-                srcSet
-              }
-              fixed(height: 100, width: 100) {
-                srcSet
+          image {
+            localFile {
+              childImageSharp {
+                fixed(
+                  cropFocus: ATTENTION
+                  fit: COVER
+                  height: 100
+                  width: 100
+                ) {
+                  ...GatsbyImageSharpFixed_withWebp_tracedSVG
+                }
               }
             }
           }
+          title
         }
       }
     }
@@ -38,6 +44,9 @@ export const query = graphql`
 export default ({ data }) => (
   <>
     <h1>Hello World!</h1>
+    {data.allShopifyProduct.nodes.map((product) => (
+      <Product key={product.id} product={product} />
+    ))}
     <pre>{JSON.stringify(data, null, 2)}</pre>
   </>
 );
