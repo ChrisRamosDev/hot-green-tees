@@ -1,7 +1,9 @@
-import React from "react";
+/** @jsx jsx */
+import { jsx } from "theme-ui";
 import { graphql } from "gatsby";
 
-import Product from "../components/Product";
+import Product from "../components/product";
+import Layout from "../components/layout";
 
 export const query = graphql`
   {
@@ -23,13 +25,13 @@ export const query = graphql`
           image {
             localFile {
               childImageSharp {
-                fixed(
-                  cropFocus: ATTENTION
+                fluid(
+                  cropFocus: NORTH
                   fit: COVER
-                  height: 100
-                  width: 100
+                  maxWidth: 1600
+                  maxHeight: 900
                 ) {
-                  ...GatsbyImageSharpFixed_withWebp_tracedSVG
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
             }
@@ -42,11 +44,12 @@ export const query = graphql`
 `;
 
 export default ({ data }) => (
-  <>
-    <h1>Hello World!</h1>
-    {data.allShopifyProduct.nodes.map((product) => (
-      <Product key={product.id} product={product} />
-    ))}
-    <pre>{JSON.stringify(data, null, 2)}</pre>
-  </>
+  <Layout>
+    <div sx={{ mx: "auto", maxWidth: "90vw" }}>
+      <h1>HotGreenTees</h1>
+      {data.allShopifyProduct.nodes.map((product) => (
+        <Product key={product.id} product={product} />
+      ))}
+    </div>
+  </Layout>
 );
