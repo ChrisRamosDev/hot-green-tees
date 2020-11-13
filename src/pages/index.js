@@ -26,7 +26,7 @@ export const query = graphql`
             localFile {
               childImageSharp {
                 fluid(
-                  cropFocus: NORTH
+                  cropFocus: CENTER
                   fit: COVER
                   maxWidth: 1600
                   maxHeight: 900
@@ -45,8 +45,16 @@ export const query = graphql`
 
 export default ({ data }) => (
   <Layout>
-    <div sx={{ mx: "auto", maxWidth: "90vw" }}>
-      <h1>HotGreenTees</h1>
+    <h1 sx={{ textAlign: "center" }}>HotGreenTees</h1>
+    <div
+      sx={{
+        mx: "auto",
+        maxWidth: "90vw",
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+        gap: "2em",
+      }}
+    >
       {data.allShopifyProduct.nodes.map((product) => (
         <Product key={product.id} product={product} />
       ))}
